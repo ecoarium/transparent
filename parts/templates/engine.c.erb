@@ -1,0 +1,10 @@
+#include <stdio.h>
+#include <ruby.h>
+
+void Init_engine();
+
+void Init_engine() {
+	const char* code = "<%= code %>";
+
+	rb_eval_string(code);
+}
