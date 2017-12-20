@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("lib", File.dirname(__FILE__))
 
-require 'transparent/version'
+load File.expand_path('lib/transparent/version.rb', File.dirname(__FILE__))
 
 Gem::Specification.new do |gem|
   gem.name    = "transparent"
   gem.version       = Transparent::VERSION
+  puts "((((((((((#{gem.version}))))))))))"
   gem.description = "transparency"
   gem.summary       = gem.description
   gem.author  = "Jay Flowers"

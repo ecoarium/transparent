@@ -45,6 +45,31 @@ task :clean do
   }
 end
 
+desc "mangle env vars"
+task :mangle_env_vars do
+  %w{
+    transparent_encrypted_confile_file_env
+    transparent_encrypted_source_file_ext_env
+    transparent_encryption_source_dir_path_env
+  }.each{|env_var_part|
+    env_var_name = ENV["#{env_var_part}_name"]
+    env_var_value = ENV["#{env_var_part}_value"]
+    mangled_value = ObsfucateString.new.mangle("#{env_var_value}")
+    puts "
+env_var_name:       #{env_var_name}
+env_var_value:      #{env_var_value}
+"
+    puts "export #{env_var_name}=#{mangled_value}"
+
+    unmangled_string = ObsfucateString.new.unmangle(mangled_value)
+    puts "unmangled [value]: [#{unmangled_string}]"
+
+    unmangled_string = eval unmangled_string
+    puts "evaluates to[value]: [#{unmangled_string}]"
+  }
+end
+
+
 desc "mangle"
 task :mangle, :string do |t,args|
   puts ObsfucateString.new.mangle(args[:string])
